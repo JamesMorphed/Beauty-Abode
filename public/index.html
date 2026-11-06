@@ -482,6 +482,7 @@ a,button,label{-webkit-tap-highlight-color:transparent}
   <p class="eyebrow" data-r="up">Instagram</p>
   <h2 class="h2" data-split style="margin-top:18px">Recent work</h2>
 <div class="ig" feedspring="inst_Ev218TPpLmwDWPl9Powev" feed-options="render:dynamic|limit:12" data-r="up">
+    <span class="ig-user" feed-field="username" hidden></span>
     <div class="ig-track" tabindex="0" role="region" aria-label="Latest Instagram posts">
       <article class="ig-post" feedspring="post">
         <a feed-field="link" href="https://www.instagram.com/" target="_blank" rel="noopener">
@@ -578,6 +579,7 @@ a,button,label{-webkit-tap-highlight-color:transparent}
   <p class="eyebrow" data-r="up">Instagram</p>
   <h2 class="h2" data-split style="margin-top:18px">Recent work</h2>
 <div class="ig" feedspring="inst_Ev218TPpLmwDWPl9Powev" feed-options="render:dynamic|limit:12" data-r="up">
+    <span class="ig-user" feed-field="username" hidden></span>
     <div class="ig-track" tabindex="0" role="region" aria-label="Latest Instagram posts">
       <article class="ig-post" feedspring="post">
         <a feed-field="link" href="https://www.instagram.com/" target="_blank" rel="noopener">
@@ -937,7 +939,8 @@ a,button,label{-webkit-tap-highlight-color:transparent}
           if(img&&!img.getAttribute('src')) p.remove();
         });
         var a=ig.querySelector('.ig-post a[href*="instagram.com/"]');
-        var user=(document.querySelector('[feed-field="username"]')||{}).textContent;
+        var user=((ig.querySelector('.ig-user')||{}).textContent||'').replace('@','').trim();
+        if(follow&&user){follow.href='https://www.instagram.com/'+encodeURIComponent(user)+'/';follow.textContent='Follow @'+user}
         if(follow&&a){var m=a.href.match(/instagram\.com\/([^\/?#]+)\//);if(m&&m[1]!=='p'&&m[1]!=='reel')follow.href='https://www.instagram.com/'+m[1]+'/'}
         update();
       } else if(++tries>40){
