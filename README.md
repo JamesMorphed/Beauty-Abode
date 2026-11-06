@@ -34,4 +34,4 @@ npm run dev
 
 ## Still to confirm before launch
 
-Email address, Facebook page, course prices and dates, accrediting body, group size.
+Facebook page, course prices and dates, accrediting body, group size.
