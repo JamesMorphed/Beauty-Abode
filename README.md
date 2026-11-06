@@ -34,4 +34,4 @@ npm run dev
 
 ## Still to confirm before launch
 
-Email address, Instagram handle, Facebook page, course prices and dates, builder gel price, accrediting body, group size, re-confirmed treatment prices.
+Email address, Facebook page, course prices and dates, express pedicure price, accrediting body, group size.

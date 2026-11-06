@@ -464,10 +464,10 @@ a,button,label{-webkit-tap-highlight-color:transparent}
       <p class="eyebrow" data-r="up">Treatments</p>
       <h2 class="h2" data-split style="margin-top:18px">Detail-led care, with clear prices</h2>
       <nav class="rows" aria-label="Treatment types">
-        <a class="row" data-r="up" href="#treatments" data-tab="nails"><b>Nails</b><span>Gel polish, acrylic and nail art, from a simple polish to a full set.</span></a>
-        <a class="row" data-r="up" style="--d:.08s" href="#treatments" data-tab="lashes"><b>Lashes</b><span>Classic and Russian extensions, lifts and tints that look natural.</span></a>
-        <a class="row" data-r="up" style="--d:.16s" href="#treatments" data-tab="brows"><b>Brows and waxing</b><span>Shaping, tinting and waxing for a clean, balanced frame.</span></a>
-        <a class="row" data-r="up" style="--d:.24s" href="#treatments" data-tab="pedis"><b>Pedicures</b><span>Gel polish and luxury pedicures for feet that feel as good as they look.</span></a>
+        <a class="row" data-r="up" href="#treatments" data-tab="nails"><b>Nails</b><span>Gelish, acrylics and nail art, from a simple polish to a full set.</span></a>
+        <a class="row" data-r="up" style="--d:.08s" href="#treatments" data-tab="lashes"><b>Lashes</b><span>Classic extensions, lash lifts and tints that look natural.</span></a>
+        <a class="row" data-r="up" style="--d:.16s" href="#treatments" data-tab="lashes"><b>Brows and waxing</b><span>Shaping, tinting and waxing for a clean, balanced frame.</span></a>
+        <a class="row" data-r="up" style="--d:.24s" href="#treatments" data-tab="pedis"><b>Pedicures</b><span>Gelish and luxury pedicures for feet that feel as good as they look.</span></a>
       </nav>
       <div data-r="up" style="margin-top:36px"><a class="btn btn-solid" href="#treatments">View all treatments and prices</a></div>
     </div>
@@ -572,12 +572,10 @@ a,button,label{-webkit-tap-highlight-color:transparent}
       <svg class="diamond" data-r="up" width="120" height="16" viewBox="0 0 120 16" fill="none" stroke="#8A6A55" aria-hidden="true"><path d="M0 8H48M72 8H120"/><path d="M60 2L66 8L60 14L54 8Z"/></svg>
       <h2 class="h2 lg" data-split style="max-width:15ch">Detail-led care, with clear prices</h2>
       <p class="lede" data-r="up" style="--d:.3s">Every appointment is unhurried and chosen with you. Not sure which treatment suits you? Call or message and Abbie will help you choose.</p>
-      <p class="tbc" style="margin:0;letter-spacing:.12em;text-transform:uppercase;font-size:12px;font-weight:500">[Prices to be re-confirmed with Abbie before launch]</p>
     </div>
     <div class="tabs" role="tablist" aria-label="Treatment categories">
       <button class="tab" role="tab" id="tab-nails" aria-controls="prices" aria-selected="true" data-key="nails">Nails</button>
-      <button class="tab" role="tab" id="tab-lashes" aria-controls="prices" aria-selected="false" tabindex="-1" data-key="lashes">Lashes</button>
-      <button class="tab" role="tab" id="tab-brows" aria-controls="prices" aria-selected="false" tabindex="-1" data-key="brows">Brows and waxing</button>
+      <button class="tab" role="tab" id="tab-lashes" aria-controls="prices" aria-selected="false" tabindex="-1" data-key="lashes">Lashes, brows and waxing</button>
       <button class="tab" role="tab" id="tab-pedis" aria-controls="prices" aria-selected="false" tabindex="-1" data-key="pedis">Pedicures</button>
     </div>
     <div class="prices" id="prices" role="tabpanel" aria-labelledby="tab-nails" tabindex="0"></div>
@@ -816,15 +814,13 @@ a,button,label{-webkit-tap-highlight-color:transparent}
 
   /* ---------- prices ---------- */
   var P={
-    nails:[['Manicures','',[['Gel polish','£29'],['Luxury gel polish','£32'],['French gel polish','£33'],['Luxury OPI','£23'],['Express manicure','£17'],['Shape and polish','£13'],["Children's manicure (under 10s)",'£13']]],
-           ['Enhancements','',[['Acrylic full set','£40'],['Acrylic full set with gel polish','£45'],['Pink and white or glitter tips','£45'],['Overlay','£38'],['Infill','£33'],['Infill with gel polish','£38'],['Removal with express manicure','£18'],['Builder gel','[price]']]],
-           ['Nail art','',[['Feature nail art','from £5'],['Swarovski crystals, each','50p']]]],
-    lashes:[['Lash extensions','',[['Classic full set','£48'],['Russian full set','£58']]],
-            ['Infills','Price depends on how long since your last appointment. Russian infills add £5.',[['Within 1 week','£13'],['Within 2 weeks','£23'],['Within 3 weeks','£33']]],
-            ['Lift, tint and removal','',[['Lash lift','£33'],['Lash tint','£13'],['Lash removal','£18']]]],
-    brows:[['Brows','',[['Brow tint','£11'],['Brow wax','£11'],['Brow tint and wax','£18']]],
-           ['Waxing','',[['Lip wax','£9'],['Chin wax','£9']]]],
-    pedis:[['Pedicures','',[['Gel polish pedicure','£29'],['Luxury gel polish pedicure','£34'],['OPI pedicure','£25'],['Express pedicure','£17']]]]
+    nails:[['Natural nails','',[['Gelish manicure','£35'],['Luxury Gelish manicure','£40'],['French Gelish manicure','£38'],['Luxury OPI manicure','£35'],['Express manicure','£20'],['Shape and polish','£15'],['Princess manicure (under 10s)','£15']]],
+           ['Nail enhancements','',[['Full set acrylic nails','£45'],['Full set acrylic extensions and Gelish','£50'],['Acrylic overlay','£43'],['Acrylic infills','£40'],['Acrylic infills and Gelish','£45'],['Acrylic removal and express manicure','£25']]],
+           ['Nail art','',[['Feature nail art, including French tips','from £5'],['Swarovski crystals, each','50p']]]],
+    lashes:[['Eyelashes','',[['Individual classic eyelash extensions','£48'],['Lash lift','£35'],['Eyelash tint','£13'],['Eyelash extension removal','£20']]],
+            ['Eyelash infills','Classic extensions.',[['Week 2','£30'],['Week 3','£35']]],
+            ['Brows and waxing','',[['Eyebrow tint','£10'],['Eyebrow wax','£10'],['Eyebrow tint and wax','£18'],['Lip wax','£9'],['Chin wax','£9']]]],
+    pedis:[['Pedicures','',[['Gelish pedicure','£35'],['Luxury Gelish pedicure','£45'],['Luxury OPI pedicure','£30'],['Express pedicure','[price]']]]]
   };
   var panel=document.getElementById('prices'), tabs=[].slice.call(document.querySelectorAll('.tab'));
   function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
