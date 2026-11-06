@@ -824,6 +824,22 @@ a,button,label{-webkit-tap-highlight-color:transparent}
     lastY=y; ticking=false;
   }
   window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(onScroll)}},{passive:true});
+  /* belt and braces: reveal and load anything on screen even if an observer never fires */
+  var sweepT=0;
+  function sweep(){
+    var H=window.innerHeight||800;
+    document.querySelectorAll('[data-view]:not([hidden]) [data-r]:not(.in),[data-view]:not([hidden]) [data-split]:not(.in),.book-wrap [data-r]:not(.in)').forEach(function(el){
+      var r=el.getBoundingClientRect(); if(r.top<H*1.05&&r.bottom>-50) el.classList.add('in');
+    });
+    vids.forEach(function(v){
+      if(v.src||!v.getClientRects().length) return;
+      var r=v.getBoundingClientRect(); if(r.top<H+300&&r.bottom>-300){v.src=v.getAttribute('data-src');v.preload='auto';if(!reduce){var p=v.play();if(p&&p.catch)p.catch(function(){})}}
+    });
+  }
+  window.addEventListener('scroll',function(){clearTimeout(sweepT);sweepT=setTimeout(sweep,120)},{passive:true});
+  window.addEventListener('hashchange',function(){setTimeout(sweep,300)});
+  window.addEventListener('load',sweep);
+  setTimeout(sweep,1200);
 
   /* ---------- desktop: bring the bar down when the pointer nears the top ---------- */
   if(window.matchMedia&&matchMedia('(hover:hover) and (pointer:fine)').matches){
