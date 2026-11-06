@@ -223,6 +223,31 @@ a,button,label{-webkit-tap-highlight-color:transparent}
 .facts li span:first-child{color:var(--cocoa)}
 .card .btn{align-self:flex-start}
 
+
+/* ---------- Instagram carousel (live feed via Feedspring) ---------- */
+.ig{position:relative;margin:52px 0 40px;text-align:left}
+.ig-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;margin-inline:calc(-1 * max(var(--g),env(safe-area-inset-left,0px)));padding-inline:max(var(--g),env(safe-area-inset-left,0px));scroll-padding-inline:max(var(--g),env(safe-area-inset-left,0px));cursor:grab;outline-offset:-4px}
+.ig-track::-webkit-scrollbar{display:none}
+.ig-track.dragging{cursor:grabbing;scroll-snap-type:none;scroll-behavior:auto}
+.ig-track.dragging a{pointer-events:none}
+.ig-post{flex:0 0 clamp(230px,23vw,330px);scroll-snap-align:start}
+.ig-post a{position:relative;display:block;aspect-ratio:4/5;overflow:hidden;border-radius:4px;background:var(--sand);color:var(--warm);text-decoration:none;-webkit-user-drag:none}
+.ig-post a::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.35) 50%,rgba(255,255,255,0) 70%) var(--sand);background-size:220% 100%;animation:shimmer 1.4s linear infinite}
+.ig-post img[src]{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;transition:scale .8s var(--ease)}
+.ig-post img:not([src]){display:none}
+.ig-cap{position:absolute;inset:auto 0 0;z-index:2;padding:48px 18px 16px;font-size:14px;line-height:1.5;background:linear-gradient(0deg,rgba(42,32,27,.78),rgba(42,32,27,0));display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;opacity:0;translate:0 10px;transition:opacity .35s,translate .45s var(--ease)}
+.ig-cap:empty{display:none}
+.ig-post a:focus-visible{outline:2px solid var(--cocoa);outline-offset:3px}
+.ig-post a:active img{scale:1.03}
+@media (hover:hover){.ig-post a:hover img{scale:1.06}.ig-post a:hover .ig-cap,.ig-post a:focus-visible .ig-cap{opacity:1;translate:0 0}}
+@keyframes shimmer{to{background-position:-120% 0}}
+.ig-ctrl{display:flex;justify-content:center;gap:12px;margin-top:28px}
+.ig-btn{display:grid;place-items:center;width:46px;height:46px;border:1px solid rgba(91,67,54,.35);border-radius:999px;background:transparent;color:var(--cocoa);cursor:pointer;transition:background-color .3s,border-color .3s,opacity .3s,scale .18s var(--ease)}
+.ig-btn:active{scale:.92}
+.ig-btn[disabled]{opacity:.3;cursor:default}
+@media (hover:hover){.ig-btn:not([disabled]):hover{background:rgba(91,67,54,.08);border-color:var(--cocoa)}}
+@media (max-width:760px){.ig-post{flex-basis:72vw}.ig-ctrl{display:none}}
+
 /* ---------- book ---------- */
 .book-wrap{background:var(--warm)}
 .book{color:var(--warm)}
@@ -276,8 +301,9 @@ a,button,label{-webkit-tap-highlight-color:transparent}
 /* ---------- reveals: only once script is running, never blocking content ---------- */
 .js [data-r="up"]:not(.in){opacity:0;translate:0 24px}
 .js [data-r="up"]{transition:opacity .7s var(--ease),translate .8s var(--ease);transition-delay:var(--d,0s)}
-.js [data-r="wipe"]:not(.in){clip-path:inset(0 0 100% 0)}
-.js [data-r="wipe"]{transition:clip-path 1.1s cubic-bezier(.25,.46,.45,.94);transition-delay:var(--d,0s)}
+.js [data-r="wipe"]{position:relative}
+.js [data-r="wipe"]::after{content:"";position:absolute;inset:0;z-index:2;background:var(--sand);transform-origin:top;pointer-events:none;transition:scale 1.1s cubic-bezier(.25,.46,.45,.94);transition-delay:var(--d,0s)}
+.js [data-r="wipe"].in::after{scale:1 0}
 .js [data-r="wipe"]:not(.in) img,.js [data-r="wipe"]:not(.in) video{scale:1.25}
 .js [data-r="wipe"].in img,.js [data-r="wipe"].in video{transition:scale 1.2s var(--ease) var(--d,0s)}
 .w{display:inline-block;white-space:nowrap}
@@ -337,6 +363,7 @@ a,button,label{-webkit-tap-highlight-color:transparent}
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;transition-delay:0s!important}
   .js [data-r]:not(.in),.js [data-split]:not(.in) .ch{opacity:1!important;translate:none!important;clip-path:none!important}
+  .js [data-r="wipe"]::after{display:none}
   .js [data-r]:not(.in) img{scale:1!important}
 }
 </style>
@@ -425,12 +452,12 @@ a,button,label{-webkit-tap-highlight-color:transparent}
       </nav>
       <div data-r="up" style="margin-top:36px"><a class="btn btn-solid" href="#treatments">View all treatments and prices</a></div>
     </div>
-    <div class="arch" data-r="wipe"><img src="m/nails-5-640.webp" srcset="m/nails-5-640.webp 640w, m/nails-5-1000.webp 1000w" sizes="(max-width:900px) 90vw, 460px" loading="lazy" decoding="async" alt="Almond nails in a soft milky pink with a fine white tip"></div>
+    <div class="arch" data-r="wipe"><img src="m/nails-5-640.webp" srcset="m/nails-5-640.webp 640w, m/nails-5-1000.webp 1000w" sizes="(max-width:900px) 90vw, 460px" loading="lazy" decoding="async" fetchpriority="low" alt="Almond nails in a soft milky pink with a fine white tip"></div>
   </div>
 </section>
 
 <section class="founder" id="abbie">
-  <img src="m/abbie-wide.webp" loading="lazy" decoding="async" alt="Abbie Harrison, founder of The Beauty Abode, smiling in the studio" width="972" height="513">
+  <img src="m/abbie-wide.webp" loading="lazy" decoding="async" fetchpriority="low" alt="Abbie Harrison, founder of The Beauty Abode, smiling in the studio" width="972" height="513">
   <div class="pad" style="width:100%">
     <div class="fcopy stack">
       <p class="eyebrow" data-r="up">Founder</p>
@@ -445,24 +472,38 @@ a,button,label{-webkit-tap-highlight-color:transparent}
   <p class="eyebrow" data-r="up">The studio</p>
   <h2 class="h2" data-split style="margin-top:18px">Unhurried, private, beautifully kept</h2>
   <div class="arches">
-    <div class="arch" data-r="wipe"><img src="m/studio-a-640.webp" srcset="m/studio-a-640.webp 640w, m/studio-a-1000.webp 1000w" sizes="(max-width:760px) 74vw, 380px" loading="lazy" decoding="async" style="object-position:50% 30%" alt="Abbie carefully painting a client's nails at the manicure station"></div>
+    <div class="arch" data-r="wipe"><img src="m/studio-a-640.webp" srcset="m/studio-a-640.webp 640w, m/studio-a-1000.webp 1000w" sizes="(max-width:760px) 74vw, 380px" loading="lazy" decoding="async" fetchpriority="low" style="object-position:50% 30%" alt="Abbie carefully painting a client's nails at the manicure station"></div>
     <div class="arch tall" data-r="wipe" style="--d:.2s"><video muted loop playsinline preload="none" poster="m/abbie-filing-34-poster.webp" data-src="m/abbie-filing-34.mp4" aria-label="Abbie shaping a client's nails"></video></div>
-    <div class="arch" data-r="wipe" style="--d:.4s"><img src="m/studio-b-640.webp" srcset="m/studio-b-640.webp 640w, m/studio-b-1000.webp 1000w" sizes="(max-width:760px) 74vw, 380px" loading="lazy" decoding="async" alt="Close-up of a hand-painted polka dot manicure in progress"></div>
+    <div class="arch" data-r="wipe" style="--d:.4s"><img src="m/studio-b-640.webp" srcset="m/studio-b-640.webp 640w, m/studio-b-1000.webp 1000w" sizes="(max-width:760px) 74vw, 380px" loading="lazy" decoding="async" fetchpriority="low" alt="Close-up of a hand-painted polka dot manicure in progress"></div>
   </div>
 </section>
 
 <section class="sec pad center">
   <p class="eyebrow" data-r="up">Instagram</p>
   <h2 class="h2" data-split style="margin-top:18px">Recent work</h2>
-  <div class="gallery">
-    <div class="tile" data-r="wipe"><img src="m/nails-1-640.webp" loading="lazy" decoding="async" alt="Almond nails with a black French tip and white dots"></div>
-    <div class="tile" data-r="wipe" style="--d:.1s"><img src="m/nails-2-640.webp" loading="lazy" decoding="async" alt="Red tips with cow print feature nails"></div>
-    <div class="tile" data-r="wipe" style="--d:.2s"><img src="m/nails-3-640.webp" loading="lazy" decoding="async" alt="Hand-painted red and pink floral nail art"></div>
-    <div class="tile" data-r="wipe" style="--d:.3s"><img src="m/nails-4-640.webp" loading="lazy" decoding="async" alt="Blue floral accents on a sheer pink base"></div>
-    <div class="tile" data-r="wipe" style="--d:.4s"><img src="m/nails-6-640.webp" loading="lazy" decoding="async" alt="Black and white cow print nails"></div>
-    <div class="tile" data-r="wipe" style="--d:.5s"><img src="m/nails-5-640.webp" loading="lazy" decoding="async" alt="Milky pink almond nails with a white tip"></div>
+<div class="ig" feedspring="inst_Ev218TPpLmwDWPl9Powev" feed-options="render:dynamic|limit:12" data-r="up">
+    <div class="ig-track" tabindex="0" role="region" aria-label="Latest Instagram posts">
+      <article class="ig-post" feedspring="post">
+        <a feed-field="link" href="https://www.instagram.com/" target="_blank" rel="noopener">
+          <img feed-field="img" alt="" loading="lazy" decoding="async">
+          <span class="ig-cap" feed-field="caption"></span>
+        </a>
+      </article>
+    </div>
+    <div class="ig-ctrl">
+      <button class="ig-btn" type="button" data-dir="-1" aria-label="Previous posts"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="ig-btn" type="button" data-dir="1" aria-label="Next posts"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
   </div>
-  <a class="btn btn-ghost" data-r="up" href="#home">Follow <span class="tbc">[handle]</span></a>
+  <div class="gallery ig-fallback" hidden>
+    <div class="tile" data-r="wipe"><img src="m/nails-1-640.webp" loading="lazy" decoding="async" fetchpriority="low" alt="Almond nails with a black French tip and white dots"></div>
+    <div class="tile" data-r="wipe" style="--d:.1s"><img src="m/nails-2-640.webp" loading="lazy" decoding="async" fetchpriority="low" alt="Red tips with cow print feature nails"></div>
+    <div class="tile" data-r="wipe" style="--d:.2s"><img src="m/nails-3-640.webp" loading="lazy" decoding="async" fetchpriority="low" alt="Hand-painted red and pink floral nail art"></div>
+    <div class="tile" data-r="wipe" style="--d:.3s"><img src="m/nails-4-640.webp" loading="lazy" decoding="async" fetchpriority="low" alt="Blue floral accents on a sheer pink base"></div>
+    <div class="tile" data-r="wipe" style="--d:.4s"><img src="m/nails-6-640.webp" loading="lazy" decoding="async" fetchpriority="low" alt="Black and white cow print nails"></div>
+    <div class="tile" data-r="wipe" style="--d:.5s"><img src="m/nails-5-640.webp" loading="lazy" decoding="async" fetchpriority="low" alt="Milky pink almond nails with a white tip"></div>
+  </div>
+  <a class="btn btn-ghost ig-follow" data-r="up" href="https://www.instagram.com/" target="_blank" rel="noopener">Follow on Instagram</a>
 </section>
 
 <section class="reviews on-dark sec pad">
@@ -484,7 +525,7 @@ a,button,label{-webkit-tap-highlight-color:transparent}
       <p class="lede" data-r="up" style="--d:.3s">Accredited nail training in Birchington, from gel polish to acrylic and nail art. Your certificate lets you obtain liability insurance.</p>
       <a class="btn btn-solid" data-r="up" style="--d:.45s;margin-top:8px" href="#courses">View the courses</a>
     </div>
-    <div class="arch" data-r="wipe" style="background:var(--clay)"><img src="m/studio-hands-640.webp" srcset="m/studio-hands-640.webp 640w, m/studio-hands-1000.webp 1000w" sizes="(max-width:900px) 90vw, 460px" loading="lazy" decoding="async" alt="Abbie guiding a student's hands while shaping a nail"></div>
+    <div class="arch" data-r="wipe" style="background:var(--clay)"><img src="m/studio-hands-640.webp" srcset="m/studio-hands-640.webp 640w, m/studio-hands-1000.webp 1000w" sizes="(max-width:900px) 90vw, 460px" loading="lazy" decoding="async" fetchpriority="low" alt="Abbie guiding a student's hands while shaping a nail"></div>
   </div>
 </section>
 
@@ -536,15 +577,29 @@ a,button,label{-webkit-tap-highlight-color:transparent}
 <section class="sec pad center" style="background:linear-gradient(180deg,#FFFFFF 0%,#FBF8F4 100%)">
   <p class="eyebrow" data-r="up">Instagram</p>
   <h2 class="h2" data-split style="margin-top:18px">Recent work</h2>
-  <div class="gallery">
-    <div class="tile" data-r="wipe"><img src="m/nails-3-640.webp" loading="lazy" decoding="async" alt="Hand-painted red and pink floral nail art"></div>
-    <div class="tile" data-r="wipe" style="--d:.1s"><img src="m/nails-1-640.webp" loading="lazy" decoding="async" alt="Almond nails with a black French tip and white dots"></div>
-    <div class="tile" data-r="wipe" style="--d:.2s"><img src="m/nails-5-640.webp" loading="lazy" decoding="async" alt="Milky pink almond nails with a white tip"></div>
-    <div class="tile" data-r="wipe" style="--d:.3s"><img src="m/nails-2-640.webp" loading="lazy" decoding="async" alt="Red tips with cow print feature nails"></div>
-    <div class="tile" data-r="wipe" style="--d:.4s"><img src="m/nails-4-640.webp" loading="lazy" decoding="async" alt="Blue floral accents on a sheer pink base"></div>
-    <div class="tile" data-r="wipe" style="--d:.5s"><img src="m/nails-6-640.webp" loading="lazy" decoding="async" alt="Black and white cow print nails"></div>
+<div class="ig" feedspring="inst_Ev218TPpLmwDWPl9Powev" feed-options="render:dynamic|limit:12" data-r="up">
+    <div class="ig-track" tabindex="0" role="region" aria-label="Latest Instagram posts">
+      <article class="ig-post" feedspring="post">
+        <a feed-field="link" href="https://www.instagram.com/" target="_blank" rel="noopener">
+          <img feed-field="img" alt="" loading="lazy" decoding="async">
+          <span class="ig-cap" feed-field="caption"></span>
+        </a>
+      </article>
+    </div>
+    <div class="ig-ctrl">
+      <button class="ig-btn" type="button" data-dir="-1" aria-label="Previous posts"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="ig-btn" type="button" data-dir="1" aria-label="Next posts"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
   </div>
-  <a class="btn btn-ghost" data-r="up" href="#treatments">Follow <span class="tbc">[handle]</span></a>
+  <div class="gallery ig-fallback" hidden>
+    <div class="tile" data-r="wipe"><img src="m/nails-3-640.webp" loading="lazy" decoding="async" fetchpriority="low" alt="Hand-painted red and pink floral nail art"></div>
+    <div class="tile" data-r="wipe" style="--d:.1s"><img src="m/nails-1-640.webp" loading="lazy" decoding="async" fetchpriority="low" alt="Almond nails with a black French tip and white dots"></div>
+    <div class="tile" data-r="wipe" style="--d:.2s"><img src="m/nails-5-640.webp" loading="lazy" decoding="async" fetchpriority="low" alt="Milky pink almond nails with a white tip"></div>
+    <div class="tile" data-r="wipe" style="--d:.3s"><img src="m/nails-2-640.webp" loading="lazy" decoding="async" fetchpriority="low" alt="Red tips with cow print feature nails"></div>
+    <div class="tile" data-r="wipe" style="--d:.4s"><img src="m/nails-4-640.webp" loading="lazy" decoding="async" fetchpriority="low" alt="Blue floral accents on a sheer pink base"></div>
+    <div class="tile" data-r="wipe" style="--d:.5s"><img src="m/nails-6-640.webp" loading="lazy" decoding="async" fetchpriority="low" alt="Black and white cow print nails"></div>
+  </div>
+  <a class="btn btn-ghost ig-follow" data-r="up" href="https://www.instagram.com/" target="_blank" rel="noopener">Follow on Instagram</a>
 </section>
 
 </div>
@@ -615,7 +670,7 @@ a,button,label{-webkit-tap-highlight-color:transparent}
       <p class="lede" data-r="up" style="--d:.3s">Abbie has worked in beauty since 2010 and teaches in the same calm studio where she sees her clients every week. You learn the techniques she uses on real clients, with time to practise until it feels natural.</p>
       <a class="btn btn-ghost" data-r="up" style="--d:.45s;margin-top:8px" href="#book">Ask about dates</a>
     </div>
-    <div class="arch" data-r="wipe"><img src="m/abbie-portrait-640.webp" srcset="m/abbie-portrait-640.webp 640w, m/abbie-portrait-1000.webp 1000w" sizes="(max-width:900px) 90vw, 460px" loading="lazy" decoding="async" style="object-position:50% 30%" alt="Abbie Harrison sitting in the studio, smiling"></div>
+    <div class="arch" data-r="wipe"><img src="m/abbie-portrait-640.webp" srcset="m/abbie-portrait-640.webp 640w, m/abbie-portrait-1000.webp 1000w" sizes="(max-width:900px) 90vw, 460px" loading="lazy" decoding="async" fetchpriority="low" style="object-position:50% 30%" alt="Abbie Harrison sitting in the studio, smiling"></div>
   </div>
 </section>
 
@@ -850,6 +905,48 @@ a,button,label{-webkit-tap-highlight-color:transparent}
     document.addEventListener('mouseleave',function(){head.classList.remove('peek')});
   }
 
+
+  /* ---------- Instagram carousels ---------- */
+  document.querySelectorAll('.ig').forEach(function(ig){
+    var track=ig.querySelector('.ig-track'), btns=ig.querySelectorAll('.ig-btn');
+    var section=ig.parentNode, fallback=section.querySelector('.ig-fallback'), follow=section.querySelector('.ig-follow');
+    function update(){
+      var max=track.scrollWidth-track.clientWidth-2;
+      btns[0].disabled=track.scrollLeft<=2; btns[1].disabled=track.scrollLeft>=max;
+    }
+    btns.forEach(function(b){b.addEventListener('click',function(){
+      var card=track.querySelector('.ig-post'); var step=card?card.getBoundingClientRect().width+16:300;
+      track.scrollBy({left:step*Math.max(1,Math.floor(track.clientWidth/step-0.2))*(+b.getAttribute('data-dir')),behavior:reduce?'auto':'smooth'});
+    })});
+    track.addEventListener('scroll',function(){requestAnimationFrame(update)},{passive:true});
+    track.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();btns[e.key==='ArrowRight'?1:0].click()}});
+    /* drag to scroll with a mouse */
+    var down=false,startX=0,startL=0,moved=false;
+    track.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse')return;down=true;moved=false;startX=e.clientX;startL=track.scrollLeft});
+    window.addEventListener('pointermove',function(e){if(!down)return;var dx=e.clientX-startX;if(Math.abs(dx)>4){moved=true;track.classList.add('dragging')}track.scrollLeft=startL-dx});
+    window.addEventListener('pointerup',function(){if(!down)return;down=false;setTimeout(function(){track.classList.remove('dragging')},0)});
+    track.addEventListener('click',function(e){if(moved){e.preventDefault();moved=false}},true);
+    /* once the feed has rendered: alt text from captions, profile link, controls */
+    var tries=0, timer=setInterval(function(){
+      var imgs=ig.querySelectorAll('.ig-post img[src]');
+      if(imgs.length){
+        clearInterval(timer);
+        ig.querySelectorAll('.ig-post').forEach(function(p){
+          var img=p.querySelector('img'), cap=p.querySelector('.ig-cap');
+          if(img&&!img.alt){var t=(cap&&cap.textContent||'').replace(/\s+/g,' ').trim();img.alt=t?t.slice(0,140):'Recent work from The Beauty Abode on Instagram'}
+          if(img&&!img.getAttribute('src')) p.remove();
+        });
+        var a=ig.querySelector('.ig-post a[href*="instagram.com/"]');
+        var user=(document.querySelector('[feed-field="username"]')||{}).textContent;
+        if(follow&&a){var m=a.href.match(/instagram\.com\/([^\/?#]+)\//);if(m&&m[1]!=='p'&&m[1]!=='reel')follow.href='https://www.instagram.com/'+m[1]+'/'}
+        update();
+      } else if(++tries>40){
+        clearInterval(timer); ig.hidden=true; if(fallback) fallback.hidden=false;
+      }
+    },250);
+    update();
+  });
+
   /* ---------- copy the phone number ---------- */
   document.querySelectorAll('[data-copy]').forEach(function(b){
     b.addEventListener('click',function(){
@@ -879,5 +976,6 @@ a,button,label{-webkit-tap-highlight-color:transparent}
 })();
 </script>
 
+<script src="https://scripts.feedspring.com/instagram-attrs.js" async defer></script>
 </body>
 </html>
