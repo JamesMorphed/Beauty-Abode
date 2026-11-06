@@ -34,4 +34,4 @@ npm run dev
 
 ## Still to confirm before launch
 
-Email address, Facebook page, course prices and dates, express pedicure price, accrediting body, group size.
+Email address, Facebook page, course prices and dates, accrediting body, group size.
