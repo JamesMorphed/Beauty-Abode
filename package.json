@@ -1,0 +1,14 @@
+{
+  "name": "the-beauty-abode",
+  "private": true,
+  "description": "The Beauty Abode website: demo staging on Cloudflare Workers + R2",
+  "scripts": {
+    "dev": "wrangler dev",
+    "sync:r2": "node scripts/sync-r2.mjs",
+    "deploy": "wrangler deploy",
+    "deploy:full": "npm run sync:r2 && wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
